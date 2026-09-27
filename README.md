@@ -132,3 +132,31 @@ Documentação de apoio ao projeto **Validador de CPF**.
 - matriz-riscos.md
 - plano-resposta-riscos.md
 - plano-comunicacao.md
+
+## Diagrama estrutural em Mermaid
+
+flowchart LR
+    U[Usuário] --> V[CPF Validator]
+
+    subgraph Sistema
+        V --> N[Normalização]
+        N --> F[Validação de Formato]
+        F --> D[Cálculo dos Dígitos]
+        D --> R[Resultado]
+    end
+
+## Diagrama comportamental
+    sequenceDiagram
+    actor Usuario
+    participant Validator as CPF Validator
+    participant Normalizador
+    participant Validador
+
+    Usuario->>Validator: Informa CPF
+    Validator->>Normalizador: Normaliza CPF
+    Normalizador-->>Validator: CPF normalizado
+
+    Validator->>Validador: Valida formato e dígitos
+    Validador-->>Validator: Resultado da validação
+
+    Validator-->>Usuario: CPF válido ou inválido
