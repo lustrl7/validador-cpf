@@ -1,0 +1,76 @@
+# Casos de Teste de Integração — Validador de CPF
+
+## Objetivo
+
+Documentar cenários de integração para um projeto de validação de CPF em JavaScript, cobrindo o fluxo entre entrada de dados, normalização, módulo validador e apresentação do resultado.
+
+> **Importante:** estes são casos propostos para execução. Não representam testes já executados nem resultados confirmados. Ajuste nomes de funções, endpoints e seletores conforme a implementação real do repositório.
+
+## Escopo considerado
+
+Fluxo esperado:
+
+1. O usuário informa um CPF na interface ou por meio da camada de entrada.
+2. A aplicação normaliza a entrada quando aplicável.
+3. O módulo validador verifica o formato e os dígitos verificadores.
+4. A aplicação apresenta o resultado ao usuário ou à camada chamadora.
+
+## Prompt 1 — Geração de cenários de integração
+
+> Atue como engenheiro de testes de software. Para um projeto de validação de CPF em JavaScript, gere cenários de integração que verifiquem o fluxo entre a entrada do usuário, a normalização dos dados, o módulo validador e a apresentação do resultado. Inclua entradas válidas e inválidas, CPF formatado e não formatado, campo vazio, caracteres não numéricos e números repetidos. Para cada cenário, informe pré-condições, entrada, resultado esperado e critério de aprovação. Não invente endpoints ou componentes que não tenham sido especificados.
+
+## Prompt 2 — Geração de casos de erro e limites
+
+> Atue como especialista em testes de integração. Crie casos negativos e de limite para a integração de uma interface com um módulo de validação de CPF em JavaScript. Considere valor nulo ou ausente, string vazia, espaços, caracteres não numéricos, quantidade incorreta de dígitos, sequência repetida e CPF matematicamente inválido. Descreva entrada, comportamento esperado e evidência necessária para aprovar o teste. Não presuma que um teste passou sem execução real.
+
+## Casos de teste propostos
+
+| ID | Cenário | Entrada de exemplo | Resultado esperado | Tipo |
+|---|---|---|---|---|
+| INT-01 | CPF válido com pontuação | `529.982.247-25` | O fluxo aceita o CPF e apresenta resultado válido. | Positivo |
+| INT-02 | CPF válido sem pontuação | `52998224725` | O fluxo aceita o CPF, caso a entrada sem máscara seja suportada. | Positivo |
+| INT-03 | CPF com dígitos verificadores incorretos | `529.982.247-24` | O módulo rejeita e a interface apresenta mensagem de CPF inválido. | Negativo |
+| INT-04 | CPF com todos os dígitos iguais | `111.111.111-11` | O CPF é rejeitado. | Negativo |
+| INT-05 | Campo vazio | `""` | A aplicação informa que o campo é obrigatório ou apresenta erro de validação definido pelo projeto. | Limite/negativo |
+| INT-06 | Entrada com espaços | `" 52998224725 "` | A aplicação remove espaços e valida, se essa normalização fizer parte da regra definida. | Limite |
+| INT-07 | Caracteres alfabéticos | `abc98224725` | A entrada é rejeitada ou tratada conforme a regra de formato; não deve causar falha inesperada. | Negativo |
+| INT-08 | Quantidade insuficiente de dígitos | `1234567890` | A aplicação rejeita a entrada e informa formato inválido. | Negativo |
+| INT-09 | Valor ausente ou nulo na camada de entrada | `null` / propriedade ausente | A camada de entrada trata o caso de forma controlada, sem exceção não tratada. | Negativo |
+| INT-10 | Resultado exibido após validação inválida | `529.982.247-24` | A interface mostra o estado de inválido e não mantém indevidamente um resultado válido anterior. | Integração de interface |
+
+### Observações sobre os exemplos
+
+- `529.982.247-25` é usado como exemplo de CPF válido para teste.
+- A aceitação de CPF com ou sem pontuação e a remoção de espaços dependem das regras implementadas no projeto. Se o projeto não oferecer esses comportamentos, ajuste o resultado esperado à especificação.
+- Para testes de interface, confirme o texto ou estado visual real previsto pela aplicação.
+- Para uma API, adapte os casos para o contrato real: método HTTP, endpoint, formato de requisição e códigos de resposta. Não crie esses detalhes sem consultar a implementação.
+
+## Critérios gerais de aprovação
+
+- O resultado apresentado corresponde ao resultado do módulo validador.
+- Entradas inválidas não são classificadas como válidas.
+- Entradas inesperadas não causam falhas não tratadas.
+- A mensagem de erro é clara e consistente com a especificação.
+- Os testes são executados na versão do código que será enviada ao repositório.
+- Os resultados e eventuais falhas são registrados; não se declara aprovação sem evidência de execução.
+
+## Registro de execução
+
+Preencha esta seção depois de executar os testes:
+
+| ID | Status (Passou/Falhou/Não executado) | Evidência ou observação |
+|---|---|---|
+| INT-01 | Não executado | Preencher após execução |
+| INT-02 | Não executado | Preencher após execução |
+| INT-03 | Não executado | Preencher após execução |
+| INT-04 | Não executado | Preencher após execução |
+| INT-05 | Não executado | Preencher após execução |
+| INT-06 | Não executado | Preencher após execução |
+| INT-07 | Não executado | Preencher após execução |
+| INT-08 | Não executado | Preencher após execução |
+| INT-09 | Não executado | Preencher após execução |
+| INT-10 | Não executado | Preencher após execução |
+
+## Reflexão para o fórum
+
+O prompt de cenários de integração ajudou a cobrir o fluxo normal entre componentes, enquanto o prompt de erros ampliou a variedade de entradas inválidas e casos de limite. Especificar as camadas envolvidas, os resultados esperados e a proibição de inventar componentes tornou os casos mais objetivos. Antes de concluir, é necessário adaptar os casos à implementação real e executar os testes, registrando evidências no repositório.
